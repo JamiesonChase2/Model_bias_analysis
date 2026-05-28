@@ -1,0 +1,11 @@
+.ipynb_checkpoints/
+__pycache__/
+.DS_Store
+
+# Local Neuronpedia caches and generated summaries.
+data/
+outputs/
+
+# Secrets should be passed through environment variables.
+.env
+.env.*
