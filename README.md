@@ -2,8 +2,6 @@
 
 This folder contains a Jupyter notebook for testing whether a model's SAE expertise-related features activate differently across gendered profession prompts.
 
-The project is inspired by the `SAE_fairness` paper workflow, but it uses a narrower fixed-feature design:
-
 1. Discover candidate expertise features from competence prompts.
 2. Filter those features using Neuronpedia descriptions.
 3. Run fixed-feature activation inference on matched profession prompts.
@@ -13,7 +11,7 @@ The project is inspired by the `SAE_fairness` paper workflow, but it uses a narr
 
 `doctor_nurse_internal_concepts.ipynb`
 
-Despite the older filename, the notebook now compares two professions:
+The notebook compares two professions:
 
 - `doctor`
 - `engineer`
@@ -66,10 +64,6 @@ Generated CSV summaries from notebook runs. These are ignored by git because the
 
 The main analysis notebook.
 
-`README.md`
-
-This file.
-
 `requirements.txt`
 
 Minimal Python dependencies for running the notebook.
@@ -94,9 +88,3 @@ The notebook defaults to:
 MODEL_ID = "gemma-2-2b"
 SOURCE_SET = "gemmascope-res-16k"
 ```
-
-## Notes
-
-The gender disparity plot does not use group averages. It compares matched male and female prompt pairs, keeps only pairs where both activations are non-zero, and plots the largest absolute male-female gap per feature.
-
-The current design tests whether gender context modulates explicit competence framing. It does not test whether bare profession nouns implicitly activate expertise features.
