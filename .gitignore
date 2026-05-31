@@ -9,3 +9,6 @@ outputs/
 # Secrets should be passed through environment variables.
 .env
 .env.*
+
+# IDE
+.idea/
