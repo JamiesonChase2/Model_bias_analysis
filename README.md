@@ -101,10 +101,13 @@ The notebook defaults to:
 ```python
 MODEL_ID = "gemma-2-2b"
 SOURCE_SET = "gemmascope-res-16k"
+TARGET_LANGUAGES = ["english", "traditional_chinese"]
 ```
 
 ## Notes
 
 The gender disparity plots do not use group averages. They compare matched male and female prompt pairs, keep only pairs where both activations are non-zero, and plot the largest absolute male-female gap per feature.
+
+The Neuronpedia activation endpoint currently limits requests to 1000 per 60 minutes. The full bilingual run is close to that limit, especially if you have already run activation cells recently. If the notebook hits HTTP 429, it saves partial outputs and stops. Wait for the window to reset, then rerun the activation cell; cached activation responses will be reused. To reduce requests, temporarily set `TARGET_LANGUAGES = ["traditional_chinese"]` or `TARGET_LANGUAGES = ["english"]` before rebuilding `TARGET_PROMPTS`.
 
 The current design tests whether gender context modulates explicit trait framing. The same fixed feature sets are tested against English and Traditional Chinese prompts so the language comparison does not change the feature pool. It does not test whether bare profession nouns implicitly activate competence or leadership features.
