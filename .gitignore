@@ -5,6 +5,7 @@ __pycache__/
 # Local Neuronpedia caches and generated summaries.
 data/
 outputs/
+output*.png
 
 # Secrets should be passed through environment variables.
 .env
