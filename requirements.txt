@@ -3,3 +3,4 @@ requests
 ipython
 matplotlib
 jupyter
+seaborn
