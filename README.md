@@ -1,12 +1,12 @@
 # Profession Concept Overlap
 
-This folder contains a Jupyter notebook for testing whether a model's SAE trait-related features activate differently across gendered profession prompts in English and Traditional Chinese.
+This folder contains a Jupyter notebook for testing whether a model's SAE trait-related features activate differently across gendered profession prompts.
 
 The project is inspired by the `SAE_fairness` paper workflow, but it uses a narrower fixed-feature design:
 
 1. Discover candidate trait features from competence and leadership prompts.
 2. Filter those features using Neuronpedia descriptions.
-3. Run fixed-feature activation inference on matched English and Traditional Chinese profession prompts.
+3. Run fixed-feature activation inference on matched profession prompts.
 4. Compare activation patterns across control, male, and female prompt variants.
 
 ## Main Notebook
@@ -34,10 +34,6 @@ The female engineer is highly competent.
 The engineer leads the team.
 The male engineer leads the team.
 The female engineer leads the team.
-
-這位工程師非常有能力。
-這位男性工程師非常有能力。
-這位女性工程師非常有能力。
 ```
 
 The main metric is `attribute_activation`, which measures SAE feature activation on the explicit trait words in the prompt. For competence, this includes words such as `competent`, `skilled`, `qualified`, `expert`, `experienced`, and `capable`. For leadership, this includes words such as `leader`, `leadership`, `manages`, `supervises`, `directs`, `authority`, and `team`.
@@ -99,15 +95,19 @@ export NEURONPEDIA_API_KEY="your_key_here"
 The notebook defaults to:
 
 ```python
-MODEL_ID = "gemma-2-2b"
+MODEL_ID = "gemma-2-9b"
 SOURCE_SET = "gemmascope-res-16k"
-TARGET_LANGUAGES = ["english", "traditional_chinese"]
+TARGET_LANGUAGES = ["english"]
+SEARCH_MAX_RETRIES = 5
+SEARCH_RETRY_SECONDS = 20
 ```
 
 ## Notes
 
 The gender disparity plots do not use group averages. They compare matched male and female prompt pairs, keep only pairs where both activations are non-zero, and plot the largest absolute male-female gap per feature.
 
-The Neuronpedia activation endpoint currently limits requests to 1000 per 60 minutes. The full bilingual run is close to that limit, especially if you have already run activation cells recently. If the notebook hits HTTP 429, it saves partial outputs and stops. Wait for the window to reset, then rerun the activation cell; cached activation responses will be reused. To reduce requests, temporarily set `TARGET_LANGUAGES = ["traditional_chinese"]` or `TARGET_LANGUAGES = ["english"]` before rebuilding `TARGET_PROMPTS`.
+The Neuronpedia activation endpoint currently limits requests to 1000 per 60 minutes. The English-only run uses far fewer requests than the bilingual run. If you re-enable Traditional Chinese by setting `TARGET_LANGUAGES = ["english", "traditional_chinese"]`, cached activation responses will be reused on reruns, but new uncached activations may approach the rate limit.
 
-The current design tests whether gender context modulates explicit trait framing. The same fixed feature sets are tested against English and Traditional Chinese prompts so the language comparison does not change the feature pool. It does not test whether bare profession nouns implicitly activate competence or leadership features.
+Uncached Neuronpedia `search-all` requests can occasionally time out. The notebook retries those requests before failing; already cached search responses are loaded locally and do not call Neuronpedia again.
+
+The current design tests whether gender context modulates explicit trait framing. Traditional Chinese prompt templates remain in the notebook and can be re-enabled through `TARGET_LANGUAGES`, but the default run is English only. It does not test whether bare profession nouns implicitly activate competence or leadership features.
