@@ -11,7 +11,7 @@ The project is inspired by the `SAE_fairness` paper workflow, but it uses a narr
 
 ## Main Notebook
 
-`doctor_nurse_internal_concepts.ipynb`
+`doctor_concepts.ipynb`
 
 Despite the older filename, the notebook now compares four professions:
 
@@ -65,7 +65,7 @@ Local Neuronpedia cache files. This includes search results, feature details, an
 
 Generated CSV summaries from notebook runs. These are ignored by git because they can be regenerated.
 
-`doctor_nurse_internal_concepts.ipynb`
+`doctor_concepts.ipynb`
 
 The main analysis notebook.
 
@@ -96,7 +96,7 @@ The notebook defaults to:
 ```python
 MODEL_ID = "gemma-2-2b"
 SOURCE_SET = "gemmascope-res-16k"
-TARGET_LANGUAGES = ["english", "traditional_chinese"]
+TARGET_LANGUAGES = ["english", "traditional_chinese", "simplified_chinese"]
 SEARCH_MAX_RETRIES = 5
 SEARCH_RETRY_SECONDS = 20
 ```
@@ -105,8 +105,8 @@ SEARCH_RETRY_SECONDS = 20
 
 The gender disparity plots do not use group averages. They compare matched male and female prompt pairs, keep only pairs where both activations are non-zero, and plot the largest absolute male-female gap per feature.
 
-The Neuronpedia activation endpoint currently limits requests to 1000 per 60 minutes. The full bilingual four-profession run is larger than the previous doctor/engineer run. Cached activation responses will be reused on reruns, but new uncached activations may approach the rate limit.
+The Neuronpedia activation endpoint currently limits requests to 1000 per 60 minutes. The full multilingual four-profession run is larger than the previous doctor/engineer run. Cached activation responses will be reused on reruns, but new uncached activations may approach the rate limit.
 
 Uncached Neuronpedia `search-all` requests can occasionally time out. The notebook retries those requests before failing; already cached search responses are loaded locally and do not call Neuronpedia again.
 
-The current design tests whether gender context modulates explicit competence framing across English and Traditional Chinese prompts. It does not test whether bare profession nouns implicitly activate competence features.
+The current design tests whether gender context modulates explicit competence framing across English, Traditional Chinese, and Simplified Chinese prompts. It does not test whether bare profession nouns implicitly activate competence features.
