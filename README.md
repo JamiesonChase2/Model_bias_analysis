@@ -69,10 +69,6 @@ Generated CSV summaries from notebook runs. These are ignored by git because the
 
 The main analysis notebook.
 
-`README.md`
-
-This file.
-
 `requirements.txt`
 
 Minimal Python dependencies for running the notebook.
