@@ -1,6 +1,8 @@
-# Profession Concept Overlap
+*TAI Group 6 - Raghad Al Musawi, Chase Jamieson, Ed Norris*
 
-This folder contains a Jupyter notebook for testing whether a model's SAE competence-related features activate differently across gendered profession prompts.
+# Model Bias anlysis
+
+This Repo contains a Jupyter notebook for testing whether a model's SAE competence-related features activate differently across gendered profession prompts.
 
 The project is inspired by the `SAE_fairness` paper workflow, but it uses a narrower fixed-feature design:
 
